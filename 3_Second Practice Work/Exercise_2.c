@@ -1,15 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
+#include <unistd.h>
 
 /*Functions Prototypes*/
 void Show_Array(int array[], int size, int flag);
 void Load_Array(int *array, int size);
 void Order_the_Array(int *array, int size);
-void Eliminating_Duplicates(int *array, int size);
+void Testing();
+int Eliminating_Duplicates(int *array, int size);
 void Combining_Arrays(int array_A[], int array_B[], int *array_C, int size, int size2);
 int Get_Number();
 
 int main(){
+    /*I call the testing function*/
+    Testing();
 
     /*I declare the variables*/
     printf("Enter the size of the first array: ");
@@ -21,7 +26,7 @@ int main(){
     system("Pause");
     system("cls");
 
-    int size3 = (size1 + size2), flag = 1;
+    int size3 = (size1 + size2), flag = 1, duplicates;
     int array_A[size1], array_B[size2], array_C[size3];
 
 
@@ -52,7 +57,7 @@ int main(){
     Order_the_Array(array_C, size3);
 
     /*I eliminate the duplicate elements from this array and display it on the screen*/
-    Eliminating_Duplicates(array_C, size3);
+    duplicates = Eliminating_Duplicates(array_C, size3);
     Show_Array(array_C, size3, flag);
 
     system("Pause");
@@ -149,9 +154,9 @@ void Combining_Arrays(int array_A[], int array_B[], int *array_C, int size, int 
 }
 
 
-void Eliminating_Duplicates(int *array, int size){
+int Eliminating_Duplicates(int *array, int size){
     /*I declare the variables*/
-    int i, j;
+    int i, j, dup = 0;
 
     /*If there are repeated elements, I transform them into zeros and then call the 'order the array' function to move 
     them to the end of the array as if they were not vector elements*/
@@ -159,11 +164,36 @@ void Eliminating_Duplicates(int *array, int size){
         for(j = i + 1; j < size; j++){
             if(array[i] == array[j]){
             array[j] = 0;
+            dup++;
             }
         }
     }
     Order_the_Array(array, size);
+
+    return dup;
 }
 
+void Testing(){
+    /*I am testing the function*/
+    printf("Starting the programs!! Please wait a moment!\n");
+    sleep(3);
+    
+    /*I declare the variables*/
+    int arr[] = {1, 1, 1};
+    int arr2[] = {2, 2, 3};
+    int arr3[6];
+    int expected_array[] = {1, 2, 3, 0, 0, 0};
 
+    /*I am testing the function*/
+    assert(Eliminating_Duplicates(arr, 3) == 2);
+    assert(Eliminating_Duplicates(arr2, 3) == 2);
+    
+    Combining_Arrays(arr, arr2, arr3, 3, 3);
+    for (int i = 0; i < 6; i++) {
+        assert(arr3[i] == expected_array[i]);
+    }
 
+    printf("The program is working correctly!\n");
+    system("Pause");
+    system("cls");
+}
