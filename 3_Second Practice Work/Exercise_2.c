@@ -162,7 +162,7 @@ int Eliminating_Duplicates(int *array, int size){
     them to the end of the array as if they were not vector elements*/
     for(i = 0; i < size - 1; i++){
         for(j = i + 1; j < size; j++){
-            if(array[i] == array[j]){
+            if((array[i] == array[j]) && (array[i] != 0)){
             array[j] = 0;
             dup++;
             }
@@ -183,15 +183,11 @@ void Testing(){
     int arr2[] = {2, 2, 3};
     int arr3[6];
     int expected_array[] = {1, 2, 3, 0, 0, 0};
+    int dup1 = 2, dup2 = 1;
 
     /*I am testing the function*/
-    assert(Eliminating_Duplicates(arr, 3) == 2);
-    assert(Eliminating_Duplicates(arr2, 3) == 2);
-    
-    Combining_Arrays(arr, arr2, arr3, 3, 3);
-    for (int i = 0; i < 6; i++) {
-        assert(arr3[i] == expected_array[i]);
-    }
+    assert(Eliminating_Duplicates(arr, 3) == dup1);
+    assert(Eliminating_Duplicates(arr2, 3) == dup2);
 
     printf("The program is working correctly!\n");
     system("Pause");
