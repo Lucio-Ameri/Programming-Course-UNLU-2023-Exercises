@@ -123,7 +123,7 @@ void Get_Word(char *word){
 }
 
 float Get_Note(){
-    /*genero aleatoriamente un numero flotante entre 1 y 10*/
+    /*Randomly generate a floating-point number between 1 and 10*/
     return (((float)rand() / RAND_MAX) * 9) + 1;
 }
 
